@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.javahelps.hibernate.InterviewUsage" 
+		table="INTERVIEW_USAGE_2">
+		<composite-id>
+			<key-property name="userName" type="string" />
+			<key-property name="path" type="string" />
+		</composite-id>
+
+		<property name="totalUsage" type="integer" />
+
+		<!-- property name="versionPath" type="string" />
+		<property name="title"
+			type="string"/>
+		<property name="description"
+			type="string"/>
+		<property name="lastStart" type="timestamp" />
+		<property name="lastFinish" type="timestamp" />
+		<property name="totalUsage" type="integer" />
+		<property name="averageDuration" type="double" />
+		<property name="show" column="`show`" type="boolean" /-->
+	</class>
+	
+</hibernate-mapping>
+
