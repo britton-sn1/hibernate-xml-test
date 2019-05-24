@@ -12,7 +12,7 @@
 
 		<property name="totalUsage" type="integer" />
 		
-		 <set name="interviewDownloadCounts" table="INTERVIEW_DOWNLOAD_COUNT" cascade="all" inverse="true">
+		 <set name="interviewDownloadCounts" table="INTERVIEW_DOWNLOAD_COUNT" cascade="all" inverse="true" lazy="false">
              <key>
              	<column name="userName"></column>
              	<column name="path"></column>

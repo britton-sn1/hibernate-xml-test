@@ -73,10 +73,9 @@ public class Main {
 				for(InterviewDownloadCount interviewDownloadCount : interviewDownloadCounts) {
 					InterviewDownloadCountId interviewDownloadCountId = interviewDownloadCount.getId();
 					
-					System.out.println(interviewDownloadCountId.getInterviewUsage().getPath() +
-							interviewDownloadCountId.getInterviewUsage().getUserName() +
-							interviewDownloadCount.getId().getExportType() + 
-							interviewDownloadCount.getId().getExportType() + 
+					System.out.println(interviewDownloadCountId.getInterviewUsage().getPath() + "," +
+							interviewDownloadCountId.getInterviewUsage().getUserName() + "," +
+							interviewDownloadCount.getId().getExportType() + "," +
 							interviewDownloadCount.getDownloads() );
 				}
 				
@@ -170,7 +169,7 @@ public class Main {
 			ex.printStackTrace();
 		} finally {
 			// Close the session
-			session.close();
+//			session.close();
 		}
 		return interviewUsages;
 	}
