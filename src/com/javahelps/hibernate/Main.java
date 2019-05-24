@@ -1,6 +1,5 @@
 package com.javahelps.hibernate;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -13,7 +12,6 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-
 
 public class Main {
 	// Create the SessionFactory when you start the application.
@@ -41,13 +39,6 @@ public class Main {
 		SESSION_FACTORY = config.buildSessionFactory(registry);
 	}
 
-	public static void main(String[] args) {
-
-		create();
-
-		// NEVER FORGET TO CLOSE THE SESSION_FACTORY
-		SESSION_FACTORY.close();
-	}
 	/**
 	 * Create a new Student.
 	 *
@@ -55,40 +46,37 @@ public class Main {
 	 * @param age
 	 */
 	public static void create() {
-		
 
 		// Create a session
 		final Session session = SESSION_FACTORY.openSession();
 		Transaction transaction = null;
 		try {
 
-			
-			
 			// Begin a transaction
 			transaction = session.beginTransaction();
 
-			List<InterviewUsage> interviewUsages = readAll(session);
-			for(InterviewUsage interviewUsage : interviewUsages) {
-				Set<InterviewDownloadCount> interviewDownloadCounts = interviewUsage.getInterviewDownloadCounts();
-				for(InterviewDownloadCount interviewDownloadCount : interviewDownloadCounts) {
-					InterviewDownloadCountId interviewDownloadCountId = interviewDownloadCount.getId();
-					
-					System.out.println(interviewDownloadCountId.getInterviewUsage().getPath() + "," +
-							interviewDownloadCountId.getInterviewUsage().getUserName() + "," +
-							interviewDownloadCount.getId().getExportType() + "," +
-							interviewDownloadCount.getDownloads() );
+			final List<InterviewUsage> interviewUsages = readAll(session);
+			for (final InterviewUsage interviewUsage : interviewUsages) {
+				final Set<InterviewDownloadCount> interviewDownloadCounts = interviewUsage.getInterviewDownloadCounts();
+				for (final InterviewDownloadCount interviewDownloadCount : interviewDownloadCounts) {
+					final InterviewDownloadCountId interviewDownloadCountId = interviewDownloadCount.getId();
+
+					System.out.println(interviewDownloadCountId.getInterviewUsage().getPath() + ","
+							+ interviewDownloadCountId.getInterviewUsage().getUserName() + ","
+							+ interviewDownloadCount.getId().getExportType() + ","
+							+ interviewDownloadCount.getDownloads());
 					interviewDownloadCount.setDownloads(interviewDownloadCount.getDownloads() + 1);
 				}
-				
+
 			}
 
 			final InterviewUsage interviewUsage = new InterviewUsage();
 			interviewUsage.setUserName("neil");
-			interviewUsage.setPath("some path " +System.currentTimeMillis());
+			interviewUsage.setPath("some path " + System.currentTimeMillis());
 
 			final Set<InterviewDownloadCount> interviewDownloadCounts = new HashSet<>();
 			final InterviewDownloadCount interviewDownloadCount = new InterviewDownloadCount();
-			
+
 			InterviewDownloadCountId interviewDowwnloadCountId = new InterviewDownloadCountId();
 			interviewDowwnloadCountId.setInterviewUsage(interviewUsage);
 			interviewDowwnloadCountId.setExportType("PDF");
@@ -102,13 +90,12 @@ public class Main {
 			interviewDownloadCount.setId(interviewDowwnloadCountId);
 			interviewDownloadCount.setDownloads(2);
 			interviewDownloadCounts.add(interviewDownloadCount);
-			
+
 			interviewUsage.setInterviewDownloadCounts(interviewDownloadCounts);
-			
 
 			session.save(interviewUsage);
 //			session.save(interviewDownloadCount);
-			
+
 			// Commit the transaction
 			transaction.commit();
 		} catch (final HibernateException ex) {
@@ -155,6 +142,13 @@ public class Main {
 		}
 	}
 
+	public static void main(String[] args) {
+
+		create();
+
+		// NEVER FORGET TO CLOSE THE SESSION_FACTORY
+		SESSION_FACTORY.close();
+	}
 
 	/**
 	 * Read all the Students.
@@ -166,10 +160,10 @@ public class Main {
 		// Transaction transaction = null;
 		try {
 			// Begin a transaction
-			//transaction = session.beginTransaction();
+			// transaction = session.beginTransaction();
 			interviewUsages = session.createQuery("FROM InterviewUsage").list();
 			// Commit the transaction
-			//transaction.commit();
+			// transaction.commit();
 		} catch (final HibernateException ex) {
 			// If there are any exceptions, roll back the changes
 //			if (transaction != null) {
@@ -191,34 +185,19 @@ public class Main {
 	 * @param name
 	 * @param age
 	 */
-/*	public static void upate(int id, String name, int age) {
-		// Create a session
-		final Session session = SESSION_FACTORY.openSession();
-		Transaction transaction = null;
-		try {
-			// Begin a transaction
-			transaction = session.beginTransaction();
-			// Get the Student from the database.
-			final Student stu = (Student) session.get(Student.class, Integer.valueOf(id));
-			// Change the values
-			stu.setName(name);
-			stu.setAge(age);
-			// Update the student
-			session.update(stu);
-
-			// Commit the transaction
-			transaction.commit();
-		} catch (final HibernateException ex) {
-			// If there are any exceptions, roll back the changes
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			// Print the Exception
-			ex.printStackTrace();
-		} finally {
-			// Close the session
-			session.close();
-		}
-	} 
-	*/
+	/*
+	 * public static void upate(int id, String name, int age) { // Create a session
+	 * final Session session = SESSION_FACTORY.openSession(); Transaction
+	 * transaction = null; try { // Begin a transaction transaction =
+	 * session.beginTransaction(); // Get the Student from the database. final
+	 * Student stu = (Student) session.get(Student.class, Integer.valueOf(id)); //
+	 * Change the values stu.setName(name); stu.setAge(age); // Update the student
+	 * session.update(stu);
+	 * 
+	 * // Commit the transaction transaction.commit(); } catch (final
+	 * HibernateException ex) { // If there are any exceptions, roll back the
+	 * changes if (transaction != null) { transaction.rollback(); } // Print the
+	 * Exception ex.printStackTrace(); } finally { // Close the session
+	 * session.close(); } }
+	 */
 }
