@@ -66,15 +66,21 @@ public class Main {
 			iu.setUserName("neil");
 			iu.setPath("some path " +System.currentTimeMillis());
 
-			final Set<InterviewDownloadCount> interviewDownloadCounts = new HashSet<>();
-			final InterviewDownloadCount interviewDownloadCount = new InterviewDownloadCount();
-			interviewDownloadCount.setUserName("neil");
-			interviewDownloadCount.setPath("some path "+System.currentTimeMillis());
-			interviewDownloadCount.setDownloadCount(10);
-			interviewDownloadCount.setDownloadType("PDF");
+			final Set<InterviewDowwnloadCount> interviewDownloadCounts = new HashSet<>();
+			final InterviewDowwnloadCount interviewDownloadCount = new InterviewDowwnloadCount();
+			
+			InterviewDowwnloadCountId interviewDowwnloadCountId = new InterviewDowwnloadCountId();
+			interviewDowwnloadCountId.setUserName("neil");
+			interviewDowwnloadCountId.setPath("some path "+System.currentTimeMillis());
+			interviewDowwnloadCountId.setExportType("PDF");
+			interviewDownloadCount.setId(interviewDowwnloadCountId);
+
+			interviewDownloadCount.setDownloads(10);
 			interviewDownloadCounts.add(interviewDownloadCount);
 
 			session.save(iu);
+			session.save(interviewDownloadCount);
+			
 			// Commit the transaction
 			transaction.commit();
 		} catch (final HibernateException ex) {

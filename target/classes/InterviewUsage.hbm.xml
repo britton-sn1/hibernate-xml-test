@@ -11,18 +11,24 @@
 		</composite-id>
 
 		<property name="totalUsage" type="integer" />
+		
+		 <!--set name="interviewDownloadCounts" table="INTERVIEW_DOWNLOAD_COUNTS" cascade="all" inverse="true">
+             <key column="userName" path" not-null="true"></key>
+             <one-to-many class="com.javahelps.hibernate.InterviewDowwnloadCount"/>
+         </set-->
 
-		<!-- property name="versionPath" type="string" />
-		<property name="title"
-			type="string"/>
-		<property name="description"
-			type="string"/>
-		<property name="lastStart" type="timestamp" />
-		<property name="lastFinish" type="timestamp" />
-		<property name="totalUsage" type="integer" />
-		<property name="averageDuration" type="double" />
-		<property name="show" column="`show`" type="boolean" /-->
 	</class>
+	
+	<class name="com.javahelps.hibernate.InterviewDowwnloadCount" table="INTERVIEW_DOWNLOAD_COUNT" >
+        <composite-id name="id" class="com.javahelps.hibernate.InterviewDowwnloadCountId">
+			<key-property name="exportType" type="string" />
+        </composite-id>
+        <many-to-one name="report" class="com.javahelps.hibernate.InterviewUsage">
+        	<column name="userName"/>
+        	<column name="path"/>
+        </many-to-one>
+		<property name="downloads" type="integer" />
+    </class>
 	
 </hibernate-mapping>
 
