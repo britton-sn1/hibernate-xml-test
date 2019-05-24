@@ -1,6 +1,7 @@
 package com.javahelps.hibernate;
 
 import java.io.Serializable;
+import java.util.Set;
 
 public class InterviewUsage implements Serializable {
 
@@ -11,6 +12,7 @@ public class InterviewUsage implements Serializable {
 	private String userName;
 	private String path;
 	private Integer totalUsage = 0;
+	private Set<InterviewDownloadCount> interviewDownloadCounts;
 
 	public String getPath() {
 		return path;
@@ -35,6 +37,14 @@ public class InterviewUsage implements Serializable {
 
 	public void setTotalUsage(Integer totalUsage) {
 		this.totalUsage = totalUsage;
+	}
+
+	public Set<InterviewDownloadCount> getInterviewDownloadCounts() {
+		return interviewDownloadCounts;
+	}
+
+	public void setInterviewDownloadCounts(Set<InterviewDownloadCount> interviewDownloadCounts) {
+		this.interviewDownloadCounts = interviewDownloadCounts;
 	}
 
 }

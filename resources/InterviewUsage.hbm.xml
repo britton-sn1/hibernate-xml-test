@@ -12,15 +12,19 @@
 
 		<property name="totalUsage" type="integer" />
 		
-		 <!--set name="interviewDownloadCounts" table="INTERVIEW_DOWNLOAD_COUNTS" cascade="all" inverse="true">
-             <key column="downloadCounts" not-null="true"></key>
-             <one-to-many class="com.javahelps.hibernate.InterviewDowwnloadCount"/>
-         </set-->
+		 <set name="interviewDownloadCounts" table="INTERVIEW_DOWNLOAD_COUNT" cascade="all" inverse="true">
+             <key>
+             	<column name="userName"></column>
+             	<column name="path"></column>
+             </key>
+             
+             <one-to-many class="com.javahelps.hibernate.InterviewDownloadCount"/>
+         </set>
 
 	</class>
 	
-	<class name="com.javahelps.hibernate.InterviewDowwnloadCount" table="INTERVIEW_DOWNLOAD_COUNT" >
-        <composite-id name="id" class="com.javahelps.hibernate.InterviewDowwnloadCountId">
+	<class name="com.javahelps.hibernate.InterviewDownloadCount" table="INTERVIEW_DOWNLOAD_COUNT" >
+        <composite-id name="id" class="com.javahelps.hibernate.InterviewDownloadCountId">
         <key-many-to-one name="interviewUsage" class="com.javahelps.hibernate.InterviewUsage">
         	<column name="userName"/>
         	<column name="path"/>

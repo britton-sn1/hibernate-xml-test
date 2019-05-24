@@ -2,7 +2,7 @@ package com.javahelps.hibernate;
 
 import java.io.Serializable;
 
-public class InterviewDowwnloadCountId implements Serializable{
+public class InterviewDownloadCountId implements Serializable{
 	
 	private static final long serialVersionUID = -6304469424022543495L;
 	

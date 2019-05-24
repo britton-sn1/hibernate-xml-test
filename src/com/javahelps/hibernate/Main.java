@@ -14,10 +14,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import org.apache.catalina.Realm;
-import org.apache.catalina.realm.GenericPrincipal;
-
-
 
 public class Main {
 	// Create the SessionFactory when you start the application.
@@ -45,6 +41,13 @@ public class Main {
 		SESSION_FACTORY = config.buildSessionFactory(registry);
 	}
 
+	public static void main(String[] args) {
+
+		create();
+
+		// NEVER FORGET TO CLOSE THE SESSION_FACTORY
+		SESSION_FACTORY.close();
+	}
 	/**
 	 * Create a new Student.
 	 *
@@ -53,23 +56,40 @@ public class Main {
 	 */
 	public static void create() {
 		
-		List<InterviewUsage> interviewUsages = readAll();
-		
+
 		// Create a session
 		final Session session = SESSION_FACTORY.openSession();
 		Transaction transaction = null;
 		try {
+
+			
+			
 			// Begin a transaction
 			transaction = session.beginTransaction();
+
+			List<InterviewUsage> interviewUsages = readAll(session);
+			for(InterviewUsage interviewUsage : interviewUsages) {
+				Set<InterviewDownloadCount> interviewDownloadCounts = interviewUsage.getInterviewDownloadCounts();
+				for(InterviewDownloadCount interviewDownloadCount : interviewDownloadCounts) {
+					InterviewDownloadCountId interviewDownloadCountId = interviewDownloadCount.getId();
+					
+					System.out.println(interviewDownloadCountId.getInterviewUsage().getPath() +
+							interviewDownloadCountId.getInterviewUsage().getUserName() +
+							interviewDownloadCount.getId().getExportType() + 
+							interviewDownloadCount.getId().getExportType() + 
+							interviewDownloadCount.getDownloads() );
+				}
+				
+			}
 
 			final InterviewUsage interviewUsage = new InterviewUsage();
 			interviewUsage.setUserName("neil");
 			interviewUsage.setPath("some path " +System.currentTimeMillis());
 
-			final Set<InterviewDowwnloadCount> interviewDownloadCounts = new HashSet<>();
-			final InterviewDowwnloadCount interviewDownloadCount = new InterviewDowwnloadCount();
+			final Set<InterviewDownloadCount> interviewDownloadCounts = new HashSet<>();
+			final InterviewDownloadCount interviewDownloadCount = new InterviewDownloadCount();
 			
-			InterviewDowwnloadCountId interviewDowwnloadCountId = new InterviewDowwnloadCountId();
+			InterviewDownloadCountId interviewDowwnloadCountId = new InterviewDownloadCountId();
 			interviewDowwnloadCountId.setInterviewUsage(interviewUsage);
 			interviewDowwnloadCountId.setExportType("PDF");
 			interviewDownloadCount.setId(interviewDowwnloadCountId);
@@ -126,41 +146,33 @@ public class Main {
 		}
 	}
 
-	public static void main(String[] args) {
-		create();
-
-		// NEVER FORGET TO CLOSE THE SESSION_FACTORY
-		SESSION_FACTORY.close();
-	}
 
 	/**
 	 * Read all the Students.
 	 *
 	 * @return a List of Students
 	 */
-	public static List<InterviewUsage> readAll() {
-		List<InterviewUsage> students = null;
-		// Create a session
-		final Session session = SESSION_FACTORY.openSession();
-		Transaction transaction = null;
+	public static List<InterviewUsage> readAll(Session session) {
+		List<InterviewUsage> interviewUsages = null;
+		// Transaction transaction = null;
 		try {
 			// Begin a transaction
-			transaction = session.beginTransaction();
-			students = session.createQuery("FROM InterviewUsage").list();
+			//transaction = session.beginTransaction();
+			interviewUsages = session.createQuery("FROM InterviewUsage").list();
 			// Commit the transaction
-			transaction.commit();
+			//transaction.commit();
 		} catch (final HibernateException ex) {
 			// If there are any exceptions, roll back the changes
-			if (transaction != null) {
-				transaction.rollback();
-			}
+//			if (transaction != null) {
+//				transaction.rollback();
+//			}
 			// Print the Exception
 			ex.printStackTrace();
 		} finally {
 			// Close the session
 			session.close();
 		}
-		return students;
+		return interviewUsages;
 	}
 
 	/**

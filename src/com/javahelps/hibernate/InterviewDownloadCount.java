@@ -2,18 +2,18 @@ package com.javahelps.hibernate;
 
 import java.io.Serializable;
 
-public class InterviewDowwnloadCount implements Serializable {
+public class InterviewDownloadCount implements Serializable {
 
 	private static final long serialVersionUID = 5981410008613156659L;
 	private int downloads;
-	private InterviewDowwnloadCountId interviewDowwnloadCountId;
+	private InterviewDownloadCountId interviewDowwnloadCountId;
 	private InterviewUsage report;
 
-	public void setId(InterviewDowwnloadCountId interviewDowwnloadCountId) {
+	public void setId(InterviewDownloadCountId interviewDowwnloadCountId) {
 		this.interviewDowwnloadCountId = interviewDowwnloadCountId;
 	}
 
-	public InterviewDowwnloadCountId getId() {
+	public InterviewDownloadCountId getId() {
 		return interviewDowwnloadCountId;
 	}
 

@@ -4,8 +4,8 @@ import org.hibernate.internal.util.ClassLoaderHelper;
 
 public class Main2 {
 
-	com.javahelps.hibernate.InterviewDowwnloadCount dk;
-	com.javahelps.hibernate.InterviewDowwnloadCountId jd;
+	com.javahelps.hibernate.InterviewDownloadCount dk;
+	com.javahelps.hibernate.InterviewDownloadCountId jd;
 	
 	public static void main(String[] args) throws ClassNotFoundException {
 		ClassLoader cl = ClassLoaderHelper.getContextClassLoader();
