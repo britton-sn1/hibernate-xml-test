@@ -77,6 +77,7 @@ public class Main {
 							interviewDownloadCountId.getInterviewUsage().getUserName() + "," +
 							interviewDownloadCount.getId().getExportType() + "," +
 							interviewDownloadCount.getDownloads() );
+					interviewDownloadCount.setDownloads(interviewDownloadCount.getDownloads() + 1);
 				}
 				
 			}
@@ -92,12 +93,21 @@ public class Main {
 			interviewDowwnloadCountId.setInterviewUsage(interviewUsage);
 			interviewDowwnloadCountId.setExportType("PDF");
 			interviewDownloadCount.setId(interviewDowwnloadCountId);
-
 			interviewDownloadCount.setDownloads(10);
 			interviewDownloadCounts.add(interviewDownloadCount);
 
+			interviewDowwnloadCountId = new InterviewDownloadCountId();
+			interviewDowwnloadCountId.setInterviewUsage(interviewUsage);
+			interviewDowwnloadCountId.setExportType("DOCX");
+			interviewDownloadCount.setId(interviewDowwnloadCountId);
+			interviewDownloadCount.setDownloads(2);
+			interviewDownloadCounts.add(interviewDownloadCount);
+			
+			interviewUsage.setInterviewDownloadCounts(interviewDownloadCounts);
+			
+
 			session.save(interviewUsage);
-			session.save(interviewDownloadCount);
+//			session.save(interviewDownloadCount);
 			
 			// Commit the transaction
 			transaction.commit();
