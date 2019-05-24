@@ -62,23 +62,22 @@ public class Main {
 			// Begin a transaction
 			transaction = session.beginTransaction();
 
-			final InterviewUsage iu = new InterviewUsage();
-			iu.setUserName("neil");
-			iu.setPath("some path " +System.currentTimeMillis());
+			final InterviewUsage interviewUsage = new InterviewUsage();
+			interviewUsage.setUserName("neil");
+			interviewUsage.setPath("some path " +System.currentTimeMillis());
 
 			final Set<InterviewDowwnloadCount> interviewDownloadCounts = new HashSet<>();
 			final InterviewDowwnloadCount interviewDownloadCount = new InterviewDowwnloadCount();
 			
 			InterviewDowwnloadCountId interviewDowwnloadCountId = new InterviewDowwnloadCountId();
-			interviewDowwnloadCountId.setUserName("neil");
-			interviewDowwnloadCountId.setPath("some path "+System.currentTimeMillis());
+			interviewDowwnloadCountId.setInterviewUsage(interviewUsage);
 			interviewDowwnloadCountId.setExportType("PDF");
 			interviewDownloadCount.setId(interviewDowwnloadCountId);
 
 			interviewDownloadCount.setDownloads(10);
 			interviewDownloadCounts.add(interviewDownloadCount);
 
-			session.save(iu);
+			session.save(interviewUsage);
 			session.save(interviewDownloadCount);
 			
 			// Commit the transaction

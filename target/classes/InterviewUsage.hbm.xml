@@ -13,7 +13,7 @@
 		<property name="totalUsage" type="integer" />
 		
 		 <!--set name="interviewDownloadCounts" table="INTERVIEW_DOWNLOAD_COUNTS" cascade="all" inverse="true">
-             <key column="userName" path" not-null="true"></key>
+             <key column="downloadCounts" not-null="true"></key>
              <one-to-many class="com.javahelps.hibernate.InterviewDowwnloadCount"/>
          </set-->
 
@@ -21,12 +21,13 @@
 	
 	<class name="com.javahelps.hibernate.InterviewDowwnloadCount" table="INTERVIEW_DOWNLOAD_COUNT" >
         <composite-id name="id" class="com.javahelps.hibernate.InterviewDowwnloadCountId">
-			<key-property name="exportType" type="string" />
-        </composite-id>
-        <many-to-one name="report" class="com.javahelps.hibernate.InterviewUsage">
+        <key-many-to-one name="interviewUsage" class="com.javahelps.hibernate.InterviewUsage">
         	<column name="userName"/>
         	<column name="path"/>
-        </many-to-one>
+        </key-many-to-one>
+        
+			<key-property name="exportType" type="string" />
+        </composite-id>
 		<property name="downloads" type="integer" />
     </class>
 	
