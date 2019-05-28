@@ -15,28 +15,13 @@ import org.hibernate.service.ServiceRegistry;
 
 public class Main {
 	// Create the SessionFactory when you start the application.
-	private static final SessionFactory SESSION_FACTORY;
+	private static SessionFactory SESSION_FACTORY;
 
 	/**
 	 * Initialize the SessionFactory instance.
 	 */
 	static {
-		// Create a Configuration object.
-		final Configuration config = new Configuration();
-		// Configure using the application resource named hibernate.cfg.xml.
-		config.configure();
-		// Extract the properties from the configuration file.
-		final Properties prop = config.getProperties();
 
-		// Create StandardServiceRegistryBuilder using the properties.
-		final StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-		builder.applySettings(prop);
-
-		// Build a ServiceRegistry
-		final ServiceRegistry registry = builder.build();
-
-		// Create the SessionFactory using the ServiceRegistry
-		SESSION_FACTORY = config.buildSessionFactory(registry);
 	}
 
 	/**
@@ -144,6 +129,26 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		// Create a Configuration object.
+		final Configuration config = new Configuration();
+		// Configure using the application resource named hibernate.cfg.xml.
+		config.configure();
+		// Extract the properties from the configuration file.
+		final Properties prop = config.getProperties();
+
+		prop.put("hibernate.connection.password", args[0]);
+
+		// Create StandardServiceRegistryBuilder using the properties.
+		final StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
+
+		builder.applySettings(prop);
+
+		// Build a ServiceRegistry
+		final ServiceRegistry registry = builder.build();
+
+		// Create the SessionFactory using the ServiceRegistry
+		SESSION_FACTORY = config.buildSessionFactory(registry);
+
 		create();
 
 		// NEVER FORGET TO CLOSE THE SESSION_FACTORY
@@ -193,7 +198,7 @@ public class Main {
 	 * Student stu = (Student) session.get(Student.class, Integer.valueOf(id)); //
 	 * Change the values stu.setName(name); stu.setAge(age); // Update the student
 	 * session.update(stu);
-	 * 
+	 *
 	 * // Commit the transaction transaction.commit(); } catch (final
 	 * HibernateException ex) { // If there are any exceptions, roll back the
 	 * changes if (transaction != null) { transaction.rollback(); } // Print the

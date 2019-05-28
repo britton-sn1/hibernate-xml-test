@@ -8,9 +8,11 @@
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<!-- The JDBC driver of your database -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/exari</property>
-        <property name="hibernate.connection.username">user</property>
-        <property name="hibernate.connection.password">password</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/test</property>
+        <!--property name="hibernate.connection.username">user</property>
+        <property name="hibernate.connection.password">password</property-->
+        
+        <property name="hibernate.connection.username">postgres</property>
   
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
